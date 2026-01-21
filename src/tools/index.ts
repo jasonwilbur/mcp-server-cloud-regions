@@ -6,17 +6,16 @@ import type {
   CloudProvider,
   ProviderTier,
   ComplianceCertification,
-  RegionType,
 } from '../types/index.js';
 import {
-  allRegions,
-  regionMap,
-  providers,
-  providerMap,
+  getRegions,
+  getRegionById,
+  getProviders,
+  getProviderById,
   getRegionsByProvider,
   getRegionsByCountry,
   getRegionsByContinent,
-} from '../data/index.js';
+} from '../data/store.js';
 
 /**
  * Calculate distance between two points using Haversine formula
@@ -52,7 +51,7 @@ function applyFilters(regions: CloudRegion[], filter: RegionFilter): CloudRegion
 
     // Filter by provider tiers
     if (filter.tiers && filter.tiers.length > 0) {
-      const providerInfo = providerMap.get(region.provider);
+      const providerInfo = getProviderById(region.provider);
       if (!providerInfo || !filter.tiers.includes(providerInfo.tier)) return false;
     }
 
@@ -116,21 +115,23 @@ function applyFilters(regions: CloudRegion[], filter: RegionFilter): CloudRegion
  * List all regions with optional filtering
  */
 export function listRegions(filter?: RegionFilter): CloudRegion[] {
-  if (!filter) return allRegions;
-  return applyFilters(allRegions, filter);
+  const regions = getRegions();
+  if (!filter) return regions;
+  return applyFilters(regions, filter);
 }
 
 /**
  * Get a specific region by ID
  */
 export function getRegion(id: string): CloudRegion | undefined {
-  return regionMap.get(id);
+  return getRegionById(id);
 }
 
 /**
  * List all providers
  */
 export function listProviders(tier?: ProviderTier) {
+  const providers = getProviders();
   if (!tier) return providers;
   return providers.filter((p) => p.tier === tier);
 }
@@ -139,14 +140,14 @@ export function listProviders(tier?: ProviderTier) {
  * Get regions for a specific provider
  */
 export function getProviderRegions(providerId: CloudProvider): CloudRegion[] {
-  return allRegions.filter((r) => r.provider === providerId);
+  return getRegions().filter((r) => r.provider === providerId);
 }
 
 /**
  * Find regions near a geographic location
  */
 export function findNearbyRegions(search: NearbySearch): RegionWithDistance[] {
-  let regions = allRegions;
+  let regions = getRegions();
 
   // Apply filters first if provided
   if (search.filter) {
@@ -188,7 +189,7 @@ export function findNearbyRegions(search: NearbySearch): RegionWithDistance[] {
  */
 export function searchRegions(query: string, filter?: RegionFilter): CloudRegion[] {
   const lowerQuery = query.toLowerCase();
-  let regions = allRegions;
+  let regions = getRegions();
 
   if (filter) {
     regions = applyFilters(regions, filter);
@@ -209,36 +210,38 @@ export function searchRegions(query: string, filter?: RegionFilter): CloudRegion
  * Get summary statistics
  */
 export function getStatistics() {
+  const regions = getRegions();
+  const providers = getProviders();
   const byProvider = getRegionsByProvider();
   const byCountry = getRegionsByCountry();
   const byContinent = getRegionsByContinent();
 
   const providerCounts: Record<string, number> = {};
-  for (const [provider, regions] of byProvider) {
-    providerCounts[provider] = regions.length;
+  for (const [provider, providerRegions] of byProvider) {
+    providerCounts[provider] = providerRegions.length;
   }
 
   const countryCounts: Record<string, number> = {};
-  for (const [country, regions] of byCountry) {
-    countryCounts[country] = regions.length;
+  for (const [country, countryRegions] of byCountry) {
+    countryCounts[country] = countryRegions.length;
   }
 
   const continentCounts: Record<string, number> = {};
-  for (const [continent, regions] of byContinent) {
-    continentCounts[continent] = regions.length;
+  for (const [continent, continentRegions] of byContinent) {
+    continentCounts[continent] = continentRegions.length;
   }
 
-  const gpuRegions = allRegions.filter((r) => r.services?.gpu).length;
-  const carbonNeutralRegions = allRegions.filter((r) => r.sustainability?.carbonNeutral).length;
+  const gpuRegions = regions.filter((r) => r.services?.gpu).length;
+  const carbonNeutralRegions = regions.filter((r) => r.sustainability?.carbonNeutral).length;
 
   // Count by region type
   const byRegionType: Record<string, number> = {};
-  for (const region of allRegions) {
+  for (const region of regions) {
     byRegionType[region.regionType] = (byRegionType[region.regionType] ?? 0) + 1;
   }
 
   return {
-    totalRegions: allRegions.length,
+    totalRegions: regions.length,
     totalProviders: providers.length,
     byProvider: providerCounts,
     byCountry: countryCounts,
@@ -260,7 +263,7 @@ export function findCompliantRegions(
     ...filter,
     compliance: certifications,
   };
-  return applyFilters(allRegions, combinedFilter);
+  return applyFilters(getRegions(), combinedFilter);
 }
 
 /**
@@ -271,14 +274,14 @@ export function findSustainableRegions(filter?: RegionFilter): CloudRegion[] {
     ...filter,
     carbonNeutral: true,
   };
-  return applyFilters(allRegions, combinedFilter);
+  return applyFilters(getRegions(), combinedFilter);
 }
 
 /**
  * Find regions with GPU availability
  */
 export function findGpuRegions(gpuType?: string, filter?: RegionFilter): CloudRegion[] {
-  let regions = applyFilters(allRegions, { ...filter, hasGpu: true });
+  let regions = applyFilters(getRegions(), { ...filter, hasGpu: true });
 
   if (gpuType) {
     const lowerGpuType = gpuType.toLowerCase();
@@ -299,9 +302,10 @@ export function compareProviderCoverage(
 ): Record<string, number> {
   const filter: RegionFilter = {};
   if (countryCode) filter.countryCodes = [countryCode];
-  if (continent) filter.continents = [continent as any];
+  if (continent) filter.continents = [continent as GeoLocation['continent']];
 
-  const filtered = Object.keys(filter).length > 0 ? applyFilters(allRegions, filter) : allRegions;
+  const regions = getRegions();
+  const filtered = Object.keys(filter).length > 0 ? applyFilters(regions, filter) : regions;
 
   const counts: Record<string, number> = {};
   for (const region of filtered) {
@@ -317,7 +321,7 @@ export function compareProviderCoverage(
 export function listCountries(): { countryCode: string; country: string; regionCount: number }[] {
   const countries = new Map<string, { country: string; count: number }>();
 
-  for (const region of allRegions) {
+  for (const region of getRegions()) {
     const existing = countries.get(region.location.countryCode);
     if (existing) {
       existing.count++;
@@ -344,7 +348,7 @@ export function listCountries(): { countryCode: string; country: string; regionC
 export function listCities(): { city: string; country: string; providers: string[]; regionCount: number }[] {
   const cities = new Map<string, { country: string; providers: Set<string>; count: number }>();
 
-  for (const region of allRegions) {
+  for (const region of getRegions()) {
     const key = `${region.location.city}-${region.location.countryCode}`;
     const existing = cities.get(key);
     if (existing) {
@@ -368,3 +372,6 @@ export function listCities(): { city: string; country: string; providers: string
     }))
     .sort((a, b) => b.regionCount - a.regionCount);
 }
+
+// Import GeoLocation type for proper typing
+import type { GeoLocation } from '../types/index.js';

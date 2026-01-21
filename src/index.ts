@@ -8,8 +8,8 @@ import {
 } from '@modelcontextprotocol/sdk/types.js';
 
 import type { RegionFilter, NearbySearch, ComplianceCertification, ProviderTier, CloudProvider } from './types/index.js';
-import { dataMetadata } from './data/metadata.js';
 import { fetchRegionData } from './data/remote.js';
+import { initializeStore, getMetadata } from './data/store.js';
 import {
   listRegions,
   getRegion,
@@ -462,7 +462,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
       case 'get_data_info': {
         return {
-          content: [{ type: 'text', text: JSON.stringify(dataMetadata, null, 2) }],
+          content: [{ type: 'text', text: JSON.stringify(getMetadata(), null, 2) }],
         };
       }
 
@@ -482,16 +482,18 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 
 // Start the server
 async function main() {
-  // Try to fetch latest data from GitHub
-  const { regions, metadata, source } = await fetchRegionData();
+  // Try to fetch latest data from GitHub and initialize the store
+  const fetchedData = await fetchRegionData();
+  initializeStore(fetchedData);
 
   const transport = new StdioServerTransport();
   await server.connect(transport);
 
+  const metadata = getMetadata();
   console.error(`Cloud Regions MCP Server running on stdio`);
-  console.error(`Data: ${regions.length} regions across ${metadata.totalProviders} providers (${source})`);
+  console.error(`Data: ${metadata.totalRegions} regions across ${metadata.totalProviders} providers (${fetchedData.source})`);
   console.error(`Last updated: ${metadata.lastUpdated}`);
-  if (source === 'remote') {
+  if (fetchedData.source === 'remote') {
     console.error(`Using latest data from GitHub`);
   } else {
     console.error(`Using bundled data (offline or fetch failed)`);
