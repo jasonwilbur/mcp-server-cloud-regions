@@ -1,0 +1,55 @@
+{
+  "name": "mcp-server-cloud-regions",
+  "version": "0.1.0",
+  "description": "MCP server providing comprehensive cloud region data across all major providers (AWS, Azure, GCP, OCI, DigitalOcean, Crusoe, and more)",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "cloud",
+    "regions",
+    "aws",
+    "azure",
+    "gcp",
+    "oci",
+    "digitalocean",
+    "crusoe",
+    "multi-cloud"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YOUR_USERNAME/mcp-server-cloud-regions.git"
+  },
+  "bugs": {
+    "url": "https://github.com/YOUR_USERNAME/mcp-server-cloud-regions/issues"
+  },
+  "homepage": "https://github.com/YOUR_USERNAME/mcp-server-cloud-regions#readme",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "mcp-server-cloud-regions": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js",
+    "prepare": "npm run build",
+    "lint": "eslint src/",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
