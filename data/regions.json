@@ -1,7 +1,7 @@
 {
   "metadata": {
     "lastUpdated": "2026-01-21",
-    "version": "0.1.0",
+    "version": "1.0.4",
     "totalRegions": 267,
     "totalProviders": 14,
     "sources": {
@@ -20,7 +20,7 @@
       "crusoe": "https://www.crusoe.ai/cloud/",
       "lambda": "https://lambdalabs.com/service/gpu-cloud"
     },
-    "exportedAt": "2026-01-21T14:15:55.604Z"
+    "exportedAt": "2026-01-21T15:21:18.265Z"
   },
   "providers": [
     {
