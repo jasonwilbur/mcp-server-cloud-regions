@@ -200,6 +200,25 @@ export const digitaloceanRegions: CloudRegion[] = [
     compliance: ['SOC2', 'ISO27001', 'PCI-DSS'],
     services: { compute: true, kubernetes: true, serverless: true, blockStorage: true, objectStorage: true },
   },
+  {
+    id: 'digitalocean-atl1',
+    provider: 'digitalocean',
+    regionCode: 'atl1',
+    displayName: 'Atlanta 1',
+    regionType: 'commercial',
+    location: {
+      country: 'United States',
+      countryCode: 'US',
+      city: 'Atlanta',
+      latitude: 33.7490,
+      longitude: -84.3880,
+      continent: 'north-america',
+    },
+    status: 'ga',
+    compliance: ['SOC2', 'ISO27001', 'PCI-DSS'],
+    services: { compute: true, kubernetes: true, serverless: true, blockStorage: true, objectStorage: true, gpu: true, gpuTypes: ['NVIDIA H100'], aiMl: true },
+    notes: 'Purpose-built for high-density GPU and AI/ML workloads',
+  },
 ];
 
 // Crusoe Cloud regions (clean energy focused)

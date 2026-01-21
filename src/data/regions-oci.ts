@@ -82,7 +82,7 @@ export const ociRegions: CloudRegion[] = [
       longitude: -87.6298,
       continent: 'north-america',
     },
-    availabilityZones: 1,
+    availabilityZones: 3,
     status: 'ga',
     compliance: ['SOC1', 'SOC2', 'ISO27001', 'HIPAA', 'PCI-DSS'],
     network: { directConnect: true, directConnectName: 'FastConnect' },
