@@ -38,6 +38,6 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add data/regions.json data/source-hashes.json
+          git add data/regions.json
           git diff --staged --quiet || git commit -m "Update regions.json [skip ci]"
           git push
