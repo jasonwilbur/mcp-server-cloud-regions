@@ -15,16 +15,16 @@
     "crusoe",
     "multi-cloud"
   ],
-  "author": "",
+  "author": "Jason Wilbur",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/YOUR_USERNAME/mcp-server-cloud-regions.git"
+    "url": "git+https://github.com/jasonwilbur/mcp-server-cloud-regions.git"
   },
   "bugs": {
-    "url": "https://github.com/YOUR_USERNAME/mcp-server-cloud-regions/issues"
+    "url": "https://github.com/jasonwilbur/mcp-server-cloud-regions/issues"
   },
-  "homepage": "https://github.com/YOUR_USERNAME/mcp-server-cloud-regions#readme",
+  "homepage": "https://github.com/jasonwilbur/mcp-server-cloud-regions#readme",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
