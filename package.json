@@ -1,6 +1,6 @@
 {
   "name": "mcp-server-cloud-regions",
-  "version": "0.1.0",
+  "version": "1.0.3",
   "description": "MCP server providing comprehensive cloud region data across all major providers (AWS, Azure, GCP, OCI, DigitalOcean, Crusoe, and more)",
   "keywords": [
     "mcp",
