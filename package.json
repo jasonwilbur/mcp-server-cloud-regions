@@ -32,7 +32,8 @@
     "mcp-server-cloud-regions": "dist/index.js"
   },
   "files": [
-    "dist"
+    "dist",
+    "data"
   ],
   "scripts": {
     "build": "tsc",
@@ -40,7 +41,9 @@
     "start": "node dist/index.js",
     "prepare": "npm run build",
     "lint": "eslint src/",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "export-data": "node scripts/export-regions.js",
+    "check-updates": "node scripts/check-for-updates.js"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0"
