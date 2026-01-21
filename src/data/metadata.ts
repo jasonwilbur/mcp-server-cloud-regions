@@ -3,7 +3,7 @@
  */
 export const dataMetadata = {
   lastUpdated: '2026-01-21',
-  version: '1.0.3',
+  version: '1.0.4',
   totalRegions: 267,
   totalProviders: 14,
   sources: {

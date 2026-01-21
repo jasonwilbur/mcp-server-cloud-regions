@@ -1,6 +1,7 @@
 {
   "name": "mcp-server-cloud-regions",
-  "version": "1.0.3",
+  "version": "1.0.4",
+  "mcpName": "io.github.jasonwilbur/cloud-regions",
   "description": "MCP server providing comprehensive cloud region data across all major providers (AWS, Azure, GCP, OCI, DigitalOcean, Crusoe, and more)",
   "keywords": [
     "mcp",
