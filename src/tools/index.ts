@@ -6,6 +6,7 @@ import type {
   CloudProvider,
   ProviderTier,
   ComplianceCertification,
+  RegionType,
 } from '../types/index.js';
 import {
   allRegions,
@@ -88,9 +89,14 @@ function applyFilters(regions: CloudRegion[], filter: RegionFilter): CloudRegion
       if (!filter.status.includes(region.status)) return false;
     }
 
-    // Filter by government cloud
-    if (filter.governmentCloud === true) {
-      if (!region.governmentCloud) return false;
+    // Filter by region types
+    if (filter.regionTypes && filter.regionTypes.length > 0) {
+      if (!filter.regionTypes.includes(region.regionType)) return false;
+    }
+
+    // Filter by data residency
+    if (filter.dataResidency) {
+      if (region.sovereignty?.dataResidency !== filter.dataResidency) return false;
     }
 
     // Filter by minimum availability zones
@@ -224,7 +230,12 @@ export function getStatistics() {
 
   const gpuRegions = allRegions.filter((r) => r.services?.gpu).length;
   const carbonNeutralRegions = allRegions.filter((r) => r.sustainability?.carbonNeutral).length;
-  const govCloudRegions = allRegions.filter((r) => r.governmentCloud).length;
+
+  // Count by region type
+  const byRegionType: Record<string, number> = {};
+  for (const region of allRegions) {
+    byRegionType[region.regionType] = (byRegionType[region.regionType] ?? 0) + 1;
+  }
 
   return {
     totalRegions: allRegions.length,
@@ -232,9 +243,9 @@ export function getStatistics() {
     byProvider: providerCounts,
     byCountry: countryCounts,
     byContinent: continentCounts,
+    byRegionType,
     gpuRegions,
     carbonNeutralRegions,
-    governmentCloudRegions: govCloudRegions,
   };
 }
 

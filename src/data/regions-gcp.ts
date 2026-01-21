@@ -1,12 +1,15 @@
 import type { CloudRegion } from '../types/index.js';
 
 export const gcpRegions: CloudRegion[] = [
-  // North America
+  // ============================================================================
+  // COMMERCIAL REGIONS - North America
+  // ============================================================================
   {
     id: 'gcp-us-central1',
     provider: 'gcp',
     regionCode: 'us-central1',
     displayName: 'Iowa',
+    regionType: 'commercial',
     location: {
       country: 'United States',
       countryCode: 'US',
@@ -28,6 +31,7 @@ export const gcpRegions: CloudRegion[] = [
     provider: 'gcp',
     regionCode: 'us-east1',
     displayName: 'South Carolina',
+    regionType: 'commercial',
     location: {
       country: 'United States',
       countryCode: 'US',
@@ -49,6 +53,7 @@ export const gcpRegions: CloudRegion[] = [
     provider: 'gcp',
     regionCode: 'us-east4',
     displayName: 'Northern Virginia',
+    regionType: 'commercial',
     location: {
       country: 'United States',
       countryCode: 'US',
@@ -70,6 +75,7 @@ export const gcpRegions: CloudRegion[] = [
     provider: 'gcp',
     regionCode: 'us-east5',
     displayName: 'Columbus',
+    regionType: 'commercial',
     location: {
       country: 'United States',
       countryCode: 'US',
@@ -91,6 +97,7 @@ export const gcpRegions: CloudRegion[] = [
     provider: 'gcp',
     regionCode: 'us-west1',
     displayName: 'Oregon',
+    regionType: 'commercial',
     location: {
       country: 'United States',
       countryCode: 'US',
@@ -112,6 +119,7 @@ export const gcpRegions: CloudRegion[] = [
     provider: 'gcp',
     regionCode: 'us-west2',
     displayName: 'Los Angeles',
+    regionType: 'commercial',
     location: {
       country: 'United States',
       countryCode: 'US',
@@ -133,6 +141,7 @@ export const gcpRegions: CloudRegion[] = [
     provider: 'gcp',
     regionCode: 'us-west3',
     displayName: 'Salt Lake City',
+    regionType: 'commercial',
     location: {
       country: 'United States',
       countryCode: 'US',
@@ -154,6 +163,7 @@ export const gcpRegions: CloudRegion[] = [
     provider: 'gcp',
     regionCode: 'us-west4',
     displayName: 'Las Vegas',
+    regionType: 'commercial',
     location: {
       country: 'United States',
       countryCode: 'US',
@@ -175,6 +185,7 @@ export const gcpRegions: CloudRegion[] = [
     provider: 'gcp',
     regionCode: 'us-south1',
     displayName: 'Dallas',
+    regionType: 'commercial',
     location: {
       country: 'United States',
       countryCode: 'US',
@@ -196,6 +207,7 @@ export const gcpRegions: CloudRegion[] = [
     provider: 'gcp',
     regionCode: 'northamerica-northeast1',
     displayName: 'Montréal',
+    regionType: 'commercial',
     location: {
       country: 'Canada',
       countryCode: 'CA',
@@ -217,6 +229,7 @@ export const gcpRegions: CloudRegion[] = [
     provider: 'gcp',
     regionCode: 'northamerica-northeast2',
     displayName: 'Toronto',
+    regionType: 'commercial',
     location: {
       country: 'Canada',
       countryCode: 'CA',
@@ -233,12 +246,38 @@ export const gcpRegions: CloudRegion[] = [
     network: { directConnect: true, directConnectName: 'Cloud Interconnect' },
     services: { compute: true, kubernetes: true, serverless: true },
   },
-  // South America
+  {
+    id: 'gcp-northamerica-south1',
+    provider: 'gcp',
+    regionCode: 'northamerica-south1',
+    displayName: 'Mexico',
+    regionType: 'commercial',
+    location: {
+      country: 'Mexico',
+      countryCode: 'MX',
+      city: 'Querétaro',
+      latitude: 20.5881,
+      longitude: -100.3899,
+      continent: 'north-america',
+    },
+    availabilityZones: 3,
+    launchedDate: '2024-06-01',
+    status: 'ga',
+    compliance: ['SOC1', 'SOC2', 'SOC3', 'ISO27001', 'PCI-DSS'],
+    sustainability: { carbonNeutral: true, renewableEnergyPercent: 100 },
+    network: { directConnect: true, directConnectName: 'Cloud Interconnect' },
+    services: { compute: true, kubernetes: true, serverless: true },
+  },
+
+  // ============================================================================
+  // COMMERCIAL REGIONS - South America
+  // ============================================================================
   {
     id: 'gcp-southamerica-east1',
     provider: 'gcp',
     regionCode: 'southamerica-east1',
     displayName: 'São Paulo',
+    regionType: 'commercial',
     location: {
       country: 'Brazil',
       countryCode: 'BR',
@@ -260,6 +299,7 @@ export const gcpRegions: CloudRegion[] = [
     provider: 'gcp',
     regionCode: 'southamerica-west1',
     displayName: 'Santiago',
+    regionType: 'commercial',
     location: {
       country: 'Chile',
       countryCode: 'CL',
@@ -276,12 +316,16 @@ export const gcpRegions: CloudRegion[] = [
     network: { directConnect: true, directConnectName: 'Cloud Interconnect' },
     services: { compute: true, kubernetes: true, serverless: true },
   },
-  // Europe
+
+  // ============================================================================
+  // COMMERCIAL REGIONS - Europe
+  // ============================================================================
   {
     id: 'gcp-europe-west1',
     provider: 'gcp',
     regionCode: 'europe-west1',
     displayName: 'Belgium',
+    regionType: 'commercial',
     location: {
       country: 'Belgium',
       countryCode: 'BE',
@@ -303,6 +347,7 @@ export const gcpRegions: CloudRegion[] = [
     provider: 'gcp',
     regionCode: 'europe-west2',
     displayName: 'London',
+    regionType: 'commercial',
     location: {
       country: 'United Kingdom',
       countryCode: 'GB',
@@ -324,6 +369,7 @@ export const gcpRegions: CloudRegion[] = [
     provider: 'gcp',
     regionCode: 'europe-west3',
     displayName: 'Frankfurt',
+    regionType: 'commercial',
     location: {
       country: 'Germany',
       countryCode: 'DE',
@@ -345,6 +391,7 @@ export const gcpRegions: CloudRegion[] = [
     provider: 'gcp',
     regionCode: 'europe-west4',
     displayName: 'Netherlands',
+    regionType: 'commercial',
     location: {
       country: 'Netherlands',
       countryCode: 'NL',
@@ -366,6 +413,7 @@ export const gcpRegions: CloudRegion[] = [
     provider: 'gcp',
     regionCode: 'europe-west6',
     displayName: 'Zurich',
+    regionType: 'commercial',
     location: {
       country: 'Switzerland',
       countryCode: 'CH',
@@ -387,6 +435,7 @@ export const gcpRegions: CloudRegion[] = [
     provider: 'gcp',
     regionCode: 'europe-west8',
     displayName: 'Milan',
+    regionType: 'commercial',
     location: {
       country: 'Italy',
       countryCode: 'IT',
@@ -408,6 +457,7 @@ export const gcpRegions: CloudRegion[] = [
     provider: 'gcp',
     regionCode: 'europe-west9',
     displayName: 'Paris',
+    regionType: 'commercial',
     location: {
       country: 'France',
       countryCode: 'FR',
@@ -429,6 +479,7 @@ export const gcpRegions: CloudRegion[] = [
     provider: 'gcp',
     regionCode: 'europe-west10',
     displayName: 'Berlin',
+    regionType: 'commercial',
     location: {
       country: 'Germany',
       countryCode: 'DE',
@@ -450,6 +501,7 @@ export const gcpRegions: CloudRegion[] = [
     provider: 'gcp',
     regionCode: 'europe-west12',
     displayName: 'Turin',
+    regionType: 'commercial',
     location: {
       country: 'Italy',
       countryCode: 'IT',
@@ -471,6 +523,7 @@ export const gcpRegions: CloudRegion[] = [
     provider: 'gcp',
     regionCode: 'europe-north1',
     displayName: 'Finland',
+    regionType: 'commercial',
     location: {
       country: 'Finland',
       countryCode: 'FI',
@@ -492,6 +545,7 @@ export const gcpRegions: CloudRegion[] = [
     provider: 'gcp',
     regionCode: 'europe-central2',
     displayName: 'Warsaw',
+    regionType: 'commercial',
     location: {
       country: 'Poland',
       countryCode: 'PL',
@@ -513,6 +567,7 @@ export const gcpRegions: CloudRegion[] = [
     provider: 'gcp',
     regionCode: 'europe-southwest1',
     displayName: 'Madrid',
+    regionType: 'commercial',
     location: {
       country: 'Spain',
       countryCode: 'ES',
@@ -529,12 +584,16 @@ export const gcpRegions: CloudRegion[] = [
     network: { directConnect: true, directConnectName: 'Cloud Interconnect' },
     services: { compute: true, kubernetes: true, serverless: true },
   },
-  // Asia Pacific
+
+  // ============================================================================
+  // COMMERCIAL REGIONS - Asia Pacific
+  // ============================================================================
   {
     id: 'gcp-asia-east1',
     provider: 'gcp',
     regionCode: 'asia-east1',
     displayName: 'Taiwan',
+    regionType: 'commercial',
     location: {
       country: 'Taiwan',
       countryCode: 'TW',
@@ -556,6 +615,7 @@ export const gcpRegions: CloudRegion[] = [
     provider: 'gcp',
     regionCode: 'asia-east2',
     displayName: 'Hong Kong',
+    regionType: 'commercial',
     location: {
       country: 'Hong Kong',
       countryCode: 'HK',
@@ -577,6 +637,7 @@ export const gcpRegions: CloudRegion[] = [
     provider: 'gcp',
     regionCode: 'asia-northeast1',
     displayName: 'Tokyo',
+    regionType: 'commercial',
     location: {
       country: 'Japan',
       countryCode: 'JP',
@@ -598,6 +659,7 @@ export const gcpRegions: CloudRegion[] = [
     provider: 'gcp',
     regionCode: 'asia-northeast2',
     displayName: 'Osaka',
+    regionType: 'commercial',
     location: {
       country: 'Japan',
       countryCode: 'JP',
@@ -619,6 +681,7 @@ export const gcpRegions: CloudRegion[] = [
     provider: 'gcp',
     regionCode: 'asia-northeast3',
     displayName: 'Seoul',
+    regionType: 'commercial',
     location: {
       country: 'South Korea',
       countryCode: 'KR',
@@ -640,6 +703,7 @@ export const gcpRegions: CloudRegion[] = [
     provider: 'gcp',
     regionCode: 'asia-south1',
     displayName: 'Mumbai',
+    regionType: 'commercial',
     location: {
       country: 'India',
       countryCode: 'IN',
@@ -661,6 +725,7 @@ export const gcpRegions: CloudRegion[] = [
     provider: 'gcp',
     regionCode: 'asia-south2',
     displayName: 'Delhi',
+    regionType: 'commercial',
     location: {
       country: 'India',
       countryCode: 'IN',
@@ -682,6 +747,7 @@ export const gcpRegions: CloudRegion[] = [
     provider: 'gcp',
     regionCode: 'asia-southeast1',
     displayName: 'Singapore',
+    regionType: 'commercial',
     location: {
       country: 'Singapore',
       countryCode: 'SG',
@@ -703,6 +769,7 @@ export const gcpRegions: CloudRegion[] = [
     provider: 'gcp',
     regionCode: 'asia-southeast2',
     displayName: 'Jakarta',
+    regionType: 'commercial',
     location: {
       country: 'Indonesia',
       countryCode: 'ID',
@@ -719,12 +786,16 @@ export const gcpRegions: CloudRegion[] = [
     network: { directConnect: true, directConnectName: 'Cloud Interconnect' },
     services: { compute: true, kubernetes: true, serverless: true },
   },
-  // Australia
+
+  // ============================================================================
+  // COMMERCIAL REGIONS - Oceania
+  // ============================================================================
   {
     id: 'gcp-australia-southeast1',
     provider: 'gcp',
     regionCode: 'australia-southeast1',
     displayName: 'Sydney',
+    regionType: 'commercial',
     location: {
       country: 'Australia',
       countryCode: 'AU',
@@ -746,6 +817,7 @@ export const gcpRegions: CloudRegion[] = [
     provider: 'gcp',
     regionCode: 'australia-southeast2',
     displayName: 'Melbourne',
+    regionType: 'commercial',
     location: {
       country: 'Australia',
       countryCode: 'AU',
@@ -762,12 +834,16 @@ export const gcpRegions: CloudRegion[] = [
     network: { directConnect: true, directConnectName: 'Cloud Interconnect' },
     services: { compute: true, kubernetes: true, serverless: true },
   },
-  // Middle East
+
+  // ============================================================================
+  // COMMERCIAL REGIONS - Middle East
+  // ============================================================================
   {
     id: 'gcp-me-west1',
     provider: 'gcp',
     regionCode: 'me-west1',
     displayName: 'Tel Aviv',
+    regionType: 'commercial',
     location: {
       country: 'Israel',
       countryCode: 'IL',
@@ -789,6 +865,7 @@ export const gcpRegions: CloudRegion[] = [
     provider: 'gcp',
     regionCode: 'me-central1',
     displayName: 'Doha',
+    regionType: 'commercial',
     location: {
       country: 'Qatar',
       countryCode: 'QA',
@@ -810,6 +887,7 @@ export const gcpRegions: CloudRegion[] = [
     provider: 'gcp',
     regionCode: 'me-central2',
     displayName: 'Dammam',
+    regionType: 'commercial',
     location: {
       country: 'Saudi Arabia',
       countryCode: 'SA',
@@ -826,12 +904,16 @@ export const gcpRegions: CloudRegion[] = [
     network: { directConnect: true, directConnectName: 'Cloud Interconnect' },
     services: { compute: true, kubernetes: true, serverless: true },
   },
-  // Africa
+
+  // ============================================================================
+  // COMMERCIAL REGIONS - Africa
+  // ============================================================================
   {
     id: 'gcp-africa-south1',
     provider: 'gcp',
     regionCode: 'africa-south1',
     displayName: 'Johannesburg',
+    regionType: 'commercial',
     location: {
       country: 'South Africa',
       countryCode: 'ZA',

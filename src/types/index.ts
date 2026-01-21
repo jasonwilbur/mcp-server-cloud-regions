@@ -26,6 +26,50 @@ export type CloudProvider =
 export type ProviderTier = 'hyperscaler' | 'major' | 'specialized' | 'regional';
 
 /**
+ * Region type classification
+ */
+export type RegionType =
+  | 'commercial'    // Standard public cloud regions
+  | 'government'    // Government-restricted (GovCloud, IL4+, etc.)
+  | 'sovereign'     // Data sovereignty / separate control plane (EU Sovereign, etc.)
+  | 'china'         // China regions (separate operators/partitions)
+  | 'multicloud';   // Cross-cloud offerings (OCI Database@Azure, etc.)
+
+/**
+ * Government classification levels (US-centric but extensible)
+ */
+export type GovernmentClassification =
+  | 'IL2'           // Controlled Unclassified Information
+  | 'IL4'           // Controlled Unclassified + NOFORN
+  | 'IL5'           // Controlled Unclassified + National Security
+  | 'IL6'           // Secret
+  | 'Secret'        // Generic secret classification
+  | 'TopSecret'     // Top Secret
+  | 'Unclassified'; // Public sector, not classified
+
+/**
+ * Sovereignty and operational details for non-commercial regions
+ */
+export interface SovereigntyInfo {
+  /** Operating entity if different from provider (e.g., "21Vianet" for Azure China) */
+  operator?: string;
+  /** Data residency guarantee (e.g., "EU", "Germany", "UK") */
+  dataResidency?: string;
+  /** Whether data is guaranteed to stay within jurisdiction */
+  dataResidencyGuarantee?: boolean;
+  /** Government classification level if applicable */
+  governmentClassification?: GovernmentClassification;
+  /** Required clearance or access restrictions */
+  accessRestrictions?: string;
+  /** Certification/approval body */
+  certificationBody?: string;
+  /** Host provider for multicloud regions */
+  hostProvider?: CloudProvider;
+  /** Additional sovereignty notes */
+  notes?: string;
+}
+
+/**
  * Geographic location data
  */
 export interface GeoLocation {
@@ -132,6 +176,8 @@ export interface CloudRegion {
   regionCode: string;
   /** Human-readable display name */
   displayName: string;
+  /** Region type classification */
+  regionType: RegionType;
   /** Geographic location details */
   location: GeoLocation;
   /** Number of availability zones (if applicable) */
@@ -148,8 +194,8 @@ export interface CloudRegion {
   network?: NetworkConnectivity;
   /** Service availability */
   services?: ServiceAvailability;
-  /** Whether this is a government/sovereign cloud region */
-  governmentCloud?: boolean;
+  /** Sovereignty/operational details for gov/sovereign/china/multicloud regions */
+  sovereignty?: SovereigntyInfo;
   /** Additional notes */
   notes?: string;
 }
@@ -184,6 +230,8 @@ export interface RegionFilter {
   providers?: CloudProvider[];
   /** Filter by provider tier(s) */
   tiers?: ProviderTier[];
+  /** Filter by region type(s) */
+  regionTypes?: RegionType[];
   /** Filter by country code(s) */
   countryCodes?: string[];
   /** Filter by continent(s) */
@@ -196,10 +244,10 @@ export interface RegionFilter {
   hasGpu?: boolean;
   /** Filter by status */
   status?: CloudRegion['status'][];
-  /** Filter to government cloud regions only */
-  governmentCloud?: boolean;
   /** Minimum number of availability zones */
   minAvailabilityZones?: number;
+  /** Filter by data residency */
+  dataResidency?: string;
 }
 
 /**

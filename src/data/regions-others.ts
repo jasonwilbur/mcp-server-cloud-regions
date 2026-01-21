@@ -1,270 +1,5 @@
 import type { CloudRegion } from '../types/index.js';
 
-// Oracle Cloud Infrastructure regions
-export const ociRegions: CloudRegion[] = [
-  {
-    id: 'oci-us-ashburn-1',
-    provider: 'oci',
-    regionCode: 'us-ashburn-1',
-    displayName: 'US East (Ashburn)',
-    location: {
-      country: 'United States',
-      countryCode: 'US',
-      city: 'Ashburn',
-      latitude: 39.0438,
-      longitude: -77.4874,
-      continent: 'north-america',
-    },
-    availabilityZones: 3,
-    launchedDate: '2016-10-01',
-    status: 'ga',
-    compliance: ['SOC1', 'SOC2', 'ISO27001', 'HIPAA', 'FedRAMP-High', 'PCI-DSS'],
-    sustainability: { carbonNeutral: false },
-    network: { directConnect: true, directConnectName: 'FastConnect' },
-    services: { compute: true, kubernetes: true, serverless: true, gpu: true, gpuTypes: ['NVIDIA A10', 'NVIDIA A100', 'NVIDIA H100'], aiMl: true },
-  },
-  {
-    id: 'oci-us-phoenix-1',
-    provider: 'oci',
-    regionCode: 'us-phoenix-1',
-    displayName: 'US West (Phoenix)',
-    location: {
-      country: 'United States',
-      countryCode: 'US',
-      city: 'Phoenix',
-      latitude: 33.4484,
-      longitude: -112.0740,
-      continent: 'north-america',
-    },
-    availabilityZones: 3,
-    launchedDate: '2016-10-01',
-    status: 'ga',
-    compliance: ['SOC1', 'SOC2', 'ISO27001', 'HIPAA', 'PCI-DSS'],
-    network: { directConnect: true, directConnectName: 'FastConnect' },
-    services: { compute: true, kubernetes: true, serverless: true, gpu: true, aiMl: true },
-  },
-  {
-    id: 'oci-us-sanjose-1',
-    provider: 'oci',
-    regionCode: 'us-sanjose-1',
-    displayName: 'US West (San Jose)',
-    location: {
-      country: 'United States',
-      countryCode: 'US',
-      city: 'San Jose',
-      latitude: 37.3382,
-      longitude: -121.8863,
-      continent: 'north-america',
-    },
-    availabilityZones: 1,
-    launchedDate: '2020-06-01',
-    status: 'ga',
-    compliance: ['SOC1', 'SOC2', 'ISO27001', 'HIPAA', 'PCI-DSS'],
-    network: { directConnect: true, directConnectName: 'FastConnect' },
-    services: { compute: true, kubernetes: true, serverless: true },
-  },
-  {
-    id: 'oci-us-chicago-1',
-    provider: 'oci',
-    regionCode: 'us-chicago-1',
-    displayName: 'US Midwest (Chicago)',
-    location: {
-      country: 'United States',
-      countryCode: 'US',
-      city: 'Chicago',
-      latitude: 41.8781,
-      longitude: -87.6298,
-      continent: 'north-america',
-    },
-    availabilityZones: 1,
-    launchedDate: '2021-04-01',
-    status: 'ga',
-    compliance: ['SOC1', 'SOC2', 'ISO27001', 'HIPAA', 'PCI-DSS'],
-    network: { directConnect: true, directConnectName: 'FastConnect' },
-    services: { compute: true, kubernetes: true, serverless: true, gpu: true, aiMl: true },
-  },
-  {
-    id: 'oci-ca-toronto-1',
-    provider: 'oci',
-    regionCode: 'ca-toronto-1',
-    displayName: 'Canada Southeast (Toronto)',
-    location: {
-      country: 'Canada',
-      countryCode: 'CA',
-      city: 'Toronto',
-      latitude: 43.6532,
-      longitude: -79.3832,
-      continent: 'north-america',
-    },
-    availabilityZones: 1,
-    launchedDate: '2019-05-01',
-    status: 'ga',
-    compliance: ['SOC1', 'SOC2', 'ISO27001', 'PCI-DSS'],
-    network: { directConnect: true, directConnectName: 'FastConnect' },
-    services: { compute: true, kubernetes: true, serverless: true },
-  },
-  {
-    id: 'oci-ca-montreal-1',
-    provider: 'oci',
-    regionCode: 'ca-montreal-1',
-    displayName: 'Canada Southeast (Montreal)',
-    location: {
-      country: 'Canada',
-      countryCode: 'CA',
-      city: 'Montreal',
-      latitude: 45.5017,
-      longitude: -73.5673,
-      continent: 'north-america',
-    },
-    availabilityZones: 1,
-    launchedDate: '2020-06-01',
-    status: 'ga',
-    compliance: ['SOC1', 'SOC2', 'ISO27001', 'PCI-DSS'],
-    network: { directConnect: true, directConnectName: 'FastConnect' },
-    services: { compute: true, kubernetes: true, serverless: true },
-  },
-  {
-    id: 'oci-sa-saopaulo-1',
-    provider: 'oci',
-    regionCode: 'sa-saopaulo-1',
-    displayName: 'Brazil East (São Paulo)',
-    location: {
-      country: 'Brazil',
-      countryCode: 'BR',
-      city: 'São Paulo',
-      latitude: -23.5505,
-      longitude: -46.6333,
-      continent: 'south-america',
-    },
-    availabilityZones: 1,
-    launchedDate: '2019-07-01',
-    status: 'ga',
-    compliance: ['SOC1', 'SOC2', 'ISO27001', 'PCI-DSS'],
-    network: { directConnect: true, directConnectName: 'FastConnect' },
-    services: { compute: true, kubernetes: true, serverless: true },
-  },
-  {
-    id: 'oci-uk-london-1',
-    provider: 'oci',
-    regionCode: 'uk-london-1',
-    displayName: 'UK South (London)',
-    location: {
-      country: 'United Kingdom',
-      countryCode: 'GB',
-      city: 'London',
-      latitude: 51.5074,
-      longitude: -0.1278,
-      continent: 'europe',
-    },
-    availabilityZones: 3,
-    launchedDate: '2018-02-01',
-    status: 'ga',
-    compliance: ['SOC1', 'SOC2', 'ISO27001', 'PCI-DSS', 'GDPR'],
-    network: { directConnect: true, directConnectName: 'FastConnect' },
-    services: { compute: true, kubernetes: true, serverless: true, gpu: true, aiMl: true },
-  },
-  {
-    id: 'oci-eu-frankfurt-1',
-    provider: 'oci',
-    regionCode: 'eu-frankfurt-1',
-    displayName: 'Germany Central (Frankfurt)',
-    location: {
-      country: 'Germany',
-      countryCode: 'DE',
-      city: 'Frankfurt',
-      latitude: 50.1109,
-      longitude: 8.6821,
-      continent: 'europe',
-    },
-    availabilityZones: 3,
-    launchedDate: '2017-09-01',
-    status: 'ga',
-    compliance: ['SOC1', 'SOC2', 'ISO27001', 'PCI-DSS', 'GDPR', 'C5'],
-    network: { directConnect: true, directConnectName: 'FastConnect' },
-    services: { compute: true, kubernetes: true, serverless: true, gpu: true, aiMl: true },
-  },
-  {
-    id: 'oci-eu-amsterdam-1',
-    provider: 'oci',
-    regionCode: 'eu-amsterdam-1',
-    displayName: 'Netherlands Northwest (Amsterdam)',
-    location: {
-      country: 'Netherlands',
-      countryCode: 'NL',
-      city: 'Amsterdam',
-      latitude: 52.3676,
-      longitude: 4.9041,
-      continent: 'europe',
-    },
-    availabilityZones: 1,
-    launchedDate: '2020-02-01',
-    status: 'ga',
-    compliance: ['SOC1', 'SOC2', 'ISO27001', 'PCI-DSS', 'GDPR'],
-    network: { directConnect: true, directConnectName: 'FastConnect' },
-    services: { compute: true, kubernetes: true, serverless: true },
-  },
-  {
-    id: 'oci-ap-tokyo-1',
-    provider: 'oci',
-    regionCode: 'ap-tokyo-1',
-    displayName: 'Japan East (Tokyo)',
-    location: {
-      country: 'Japan',
-      countryCode: 'JP',
-      city: 'Tokyo',
-      latitude: 35.6762,
-      longitude: 139.6503,
-      continent: 'asia',
-    },
-    availabilityZones: 1,
-    launchedDate: '2019-05-01',
-    status: 'ga',
-    compliance: ['SOC1', 'SOC2', 'ISO27001', 'PCI-DSS', 'ISMAP'],
-    network: { directConnect: true, directConnectName: 'FastConnect' },
-    services: { compute: true, kubernetes: true, serverless: true, gpu: true, aiMl: true },
-  },
-  {
-    id: 'oci-ap-singapore-1',
-    provider: 'oci',
-    regionCode: 'ap-singapore-1',
-    displayName: 'Singapore',
-    location: {
-      country: 'Singapore',
-      countryCode: 'SG',
-      city: 'Singapore',
-      latitude: 1.3521,
-      longitude: 103.8198,
-      continent: 'asia',
-    },
-    availabilityZones: 1,
-    launchedDate: '2021-04-01',
-    status: 'ga',
-    compliance: ['SOC1', 'SOC2', 'ISO27001', 'PCI-DSS', 'MTCS'],
-    network: { directConnect: true, directConnectName: 'FastConnect' },
-    services: { compute: true, kubernetes: true, serverless: true },
-  },
-  {
-    id: 'oci-ap-sydney-1',
-    provider: 'oci',
-    regionCode: 'ap-sydney-1',
-    displayName: 'Australia East (Sydney)',
-    location: {
-      country: 'Australia',
-      countryCode: 'AU',
-      city: 'Sydney',
-      latitude: -33.8688,
-      longitude: 151.2093,
-      continent: 'oceania',
-    },
-    availabilityZones: 1,
-    launchedDate: '2019-08-01',
-    status: 'ga',
-    compliance: ['SOC1', 'SOC2', 'ISO27001', 'PCI-DSS', 'IRAP'],
-    network: { directConnect: true, directConnectName: 'FastConnect' },
-    services: { compute: true, kubernetes: true, serverless: true },
-  },
-];
-
 // DigitalOcean regions
 export const digitaloceanRegions: CloudRegion[] = [
   {
@@ -272,6 +7,7 @@ export const digitaloceanRegions: CloudRegion[] = [
     provider: 'digitalocean',
     regionCode: 'nyc1',
     displayName: 'New York 1',
+    regionType: 'commercial',
     location: {
       country: 'United States',
       countryCode: 'US',
@@ -289,6 +25,7 @@ export const digitaloceanRegions: CloudRegion[] = [
     provider: 'digitalocean',
     regionCode: 'nyc3',
     displayName: 'New York 3',
+    regionType: 'commercial',
     location: {
       country: 'United States',
       countryCode: 'US',
@@ -306,6 +43,7 @@ export const digitaloceanRegions: CloudRegion[] = [
     provider: 'digitalocean',
     regionCode: 'sfo2',
     displayName: 'San Francisco 2',
+    regionType: 'commercial',
     location: {
       country: 'United States',
       countryCode: 'US',
@@ -323,6 +61,7 @@ export const digitaloceanRegions: CloudRegion[] = [
     provider: 'digitalocean',
     regionCode: 'sfo3',
     displayName: 'San Francisco 3',
+    regionType: 'commercial',
     location: {
       country: 'United States',
       countryCode: 'US',
@@ -340,6 +79,7 @@ export const digitaloceanRegions: CloudRegion[] = [
     provider: 'digitalocean',
     regionCode: 'tor1',
     displayName: 'Toronto 1',
+    regionType: 'commercial',
     location: {
       country: 'Canada',
       countryCode: 'CA',
@@ -357,6 +97,7 @@ export const digitaloceanRegions: CloudRegion[] = [
     provider: 'digitalocean',
     regionCode: 'lon1',
     displayName: 'London 1',
+    regionType: 'commercial',
     location: {
       country: 'United Kingdom',
       countryCode: 'GB',
@@ -374,6 +115,7 @@ export const digitaloceanRegions: CloudRegion[] = [
     provider: 'digitalocean',
     regionCode: 'ams3',
     displayName: 'Amsterdam 3',
+    regionType: 'commercial',
     location: {
       country: 'Netherlands',
       countryCode: 'NL',
@@ -391,6 +133,7 @@ export const digitaloceanRegions: CloudRegion[] = [
     provider: 'digitalocean',
     regionCode: 'fra1',
     displayName: 'Frankfurt 1',
+    regionType: 'commercial',
     location: {
       country: 'Germany',
       countryCode: 'DE',
@@ -408,6 +151,7 @@ export const digitaloceanRegions: CloudRegion[] = [
     provider: 'digitalocean',
     regionCode: 'sgp1',
     displayName: 'Singapore 1',
+    regionType: 'commercial',
     location: {
       country: 'Singapore',
       countryCode: 'SG',
@@ -425,6 +169,7 @@ export const digitaloceanRegions: CloudRegion[] = [
     provider: 'digitalocean',
     regionCode: 'blr1',
     displayName: 'Bangalore 1',
+    regionType: 'commercial',
     location: {
       country: 'India',
       countryCode: 'IN',
@@ -442,6 +187,7 @@ export const digitaloceanRegions: CloudRegion[] = [
     provider: 'digitalocean',
     regionCode: 'syd1',
     displayName: 'Sydney 1',
+    regionType: 'commercial',
     location: {
       country: 'Australia',
       countryCode: 'AU',
@@ -463,6 +209,7 @@ export const crusoeRegions: CloudRegion[] = [
     provider: 'crusoe',
     regionCode: 'us-east-1',
     displayName: 'US East',
+    regionType: 'commercial',
     location: {
       country: 'United States',
       countryCode: 'US',
@@ -485,6 +232,7 @@ export const crusoeRegions: CloudRegion[] = [
     provider: 'crusoe',
     regionCode: 'us-central-1',
     displayName: 'US Central',
+    regionType: 'commercial',
     location: {
       country: 'United States',
       countryCode: 'US',
@@ -511,6 +259,7 @@ export const coreweaveRegions: CloudRegion[] = [
     provider: 'coreweave',
     regionCode: 'ORD1',
     displayName: 'Chicago',
+    regionType: 'commercial',
     location: {
       country: 'United States',
       countryCode: 'US',
@@ -528,6 +277,7 @@ export const coreweaveRegions: CloudRegion[] = [
     provider: 'coreweave',
     regionCode: 'LAS1',
     displayName: 'Las Vegas',
+    regionType: 'commercial',
     location: {
       country: 'United States',
       countryCode: 'US',
@@ -545,6 +295,7 @@ export const coreweaveRegions: CloudRegion[] = [
     provider: 'coreweave',
     regionCode: 'LGA1',
     displayName: 'New York Metro',
+    regionType: 'commercial',
     location: {
       country: 'United States',
       countryCode: 'US',
@@ -566,6 +317,7 @@ export const lambdaRegions: CloudRegion[] = [
     provider: 'lambda',
     regionCode: 'us-west-1',
     displayName: 'US West (California)',
+    regionType: 'commercial',
     location: {
       country: 'United States',
       countryCode: 'US',
@@ -583,6 +335,7 @@ export const lambdaRegions: CloudRegion[] = [
     provider: 'lambda',
     regionCode: 'us-south-1',
     displayName: 'US South (Texas)',
+    regionType: 'commercial',
     location: {
       country: 'United States',
       countryCode: 'US',
@@ -604,6 +357,7 @@ export const hetznerRegions: CloudRegion[] = [
     provider: 'hetzner',
     regionCode: 'fsn1',
     displayName: 'Falkenstein',
+    regionType: 'commercial',
     location: {
       country: 'Germany',
       countryCode: 'DE',
@@ -623,6 +377,7 @@ export const hetznerRegions: CloudRegion[] = [
     provider: 'hetzner',
     regionCode: 'nbg1',
     displayName: 'Nuremberg',
+    regionType: 'commercial',
     location: {
       country: 'Germany',
       countryCode: 'DE',
@@ -641,6 +396,7 @@ export const hetznerRegions: CloudRegion[] = [
     provider: 'hetzner',
     regionCode: 'hel1',
     displayName: 'Helsinki',
+    regionType: 'commercial',
     location: {
       country: 'Finland',
       countryCode: 'FI',
@@ -659,6 +415,7 @@ export const hetznerRegions: CloudRegion[] = [
     provider: 'hetzner',
     regionCode: 'ash',
     displayName: 'Ashburn',
+    regionType: 'commercial',
     location: {
       country: 'United States',
       countryCode: 'US',
@@ -676,6 +433,7 @@ export const hetznerRegions: CloudRegion[] = [
     provider: 'hetzner',
     regionCode: 'hil',
     displayName: 'Hillsboro',
+    regionType: 'commercial',
     location: {
       country: 'United States',
       countryCode: 'US',
@@ -693,6 +451,7 @@ export const hetznerRegions: CloudRegion[] = [
     provider: 'hetzner',
     regionCode: 'sin',
     displayName: 'Singapore',
+    regionType: 'commercial',
     location: {
       country: 'Singapore',
       countryCode: 'SG',
@@ -714,6 +473,7 @@ export const scalewayRegions: CloudRegion[] = [
     provider: 'scaleway',
     regionCode: 'fr-par',
     displayName: 'Paris',
+    regionType: 'commercial',
     location: {
       country: 'France',
       countryCode: 'FR',
@@ -733,6 +493,7 @@ export const scalewayRegions: CloudRegion[] = [
     provider: 'scaleway',
     regionCode: 'nl-ams',
     displayName: 'Amsterdam',
+    regionType: 'commercial',
     location: {
       country: 'Netherlands',
       countryCode: 'NL',
@@ -752,6 +513,7 @@ export const scalewayRegions: CloudRegion[] = [
     provider: 'scaleway',
     regionCode: 'pl-waw',
     displayName: 'Warsaw',
+    regionType: 'commercial',
     location: {
       country: 'Poland',
       countryCode: 'PL',
@@ -775,6 +537,7 @@ export const vultrRegions: CloudRegion[] = [
     provider: 'vultr',
     regionCode: 'ewr',
     displayName: 'New Jersey',
+    regionType: 'commercial',
     location: {
       country: 'United States',
       countryCode: 'US',
@@ -791,6 +554,7 @@ export const vultrRegions: CloudRegion[] = [
     provider: 'vultr',
     regionCode: 'ord',
     displayName: 'Chicago',
+    regionType: 'commercial',
     location: {
       country: 'United States',
       countryCode: 'US',
@@ -807,6 +571,7 @@ export const vultrRegions: CloudRegion[] = [
     provider: 'vultr',
     regionCode: 'dfw',
     displayName: 'Dallas',
+    regionType: 'commercial',
     location: {
       country: 'United States',
       countryCode: 'US',
@@ -823,6 +588,7 @@ export const vultrRegions: CloudRegion[] = [
     provider: 'vultr',
     regionCode: 'lax',
     displayName: 'Los Angeles',
+    regionType: 'commercial',
     location: {
       country: 'United States',
       countryCode: 'US',
@@ -839,6 +605,7 @@ export const vultrRegions: CloudRegion[] = [
     provider: 'vultr',
     regionCode: 'sea',
     displayName: 'Seattle',
+    regionType: 'commercial',
     location: {
       country: 'United States',
       countryCode: 'US',
@@ -855,6 +622,7 @@ export const vultrRegions: CloudRegion[] = [
     provider: 'vultr',
     regionCode: 'ams',
     displayName: 'Amsterdam',
+    regionType: 'commercial',
     location: {
       country: 'Netherlands',
       countryCode: 'NL',
@@ -872,6 +640,7 @@ export const vultrRegions: CloudRegion[] = [
     provider: 'vultr',
     regionCode: 'lhr',
     displayName: 'London',
+    regionType: 'commercial',
     location: {
       country: 'United Kingdom',
       countryCode: 'GB',
@@ -889,6 +658,7 @@ export const vultrRegions: CloudRegion[] = [
     provider: 'vultr',
     regionCode: 'fra',
     displayName: 'Frankfurt',
+    regionType: 'commercial',
     location: {
       country: 'Germany',
       countryCode: 'DE',
@@ -906,6 +676,7 @@ export const vultrRegions: CloudRegion[] = [
     provider: 'vultr',
     regionCode: 'nrt',
     displayName: 'Tokyo',
+    regionType: 'commercial',
     location: {
       country: 'Japan',
       countryCode: 'JP',
@@ -922,6 +693,7 @@ export const vultrRegions: CloudRegion[] = [
     provider: 'vultr',
     regionCode: 'sgp',
     displayName: 'Singapore',
+    regionType: 'commercial',
     location: {
       country: 'Singapore',
       countryCode: 'SG',
@@ -938,6 +710,7 @@ export const vultrRegions: CloudRegion[] = [
     provider: 'vultr',
     regionCode: 'syd',
     displayName: 'Sydney',
+    regionType: 'commercial',
     location: {
       country: 'Australia',
       countryCode: 'AU',
@@ -958,6 +731,7 @@ export const linodeRegions: CloudRegion[] = [
     provider: 'linode',
     regionCode: 'us-east',
     displayName: 'Newark',
+    regionType: 'commercial',
     location: {
       country: 'United States',
       countryCode: 'US',
@@ -975,6 +749,7 @@ export const linodeRegions: CloudRegion[] = [
     provider: 'linode',
     regionCode: 'us-central',
     displayName: 'Dallas',
+    regionType: 'commercial',
     location: {
       country: 'United States',
       countryCode: 'US',
@@ -992,6 +767,7 @@ export const linodeRegions: CloudRegion[] = [
     provider: 'linode',
     regionCode: 'us-west',
     displayName: 'Fremont',
+    regionType: 'commercial',
     location: {
       country: 'United States',
       countryCode: 'US',
@@ -1009,6 +785,7 @@ export const linodeRegions: CloudRegion[] = [
     provider: 'linode',
     regionCode: 'us-southeast',
     displayName: 'Atlanta',
+    regionType: 'commercial',
     location: {
       country: 'United States',
       countryCode: 'US',
@@ -1026,6 +803,7 @@ export const linodeRegions: CloudRegion[] = [
     provider: 'linode',
     regionCode: 'ca-central',
     displayName: 'Toronto',
+    regionType: 'commercial',
     location: {
       country: 'Canada',
       countryCode: 'CA',
@@ -1043,6 +821,7 @@ export const linodeRegions: CloudRegion[] = [
     provider: 'linode',
     regionCode: 'eu-west',
     displayName: 'London',
+    regionType: 'commercial',
     location: {
       country: 'United Kingdom',
       countryCode: 'GB',
@@ -1060,6 +839,7 @@ export const linodeRegions: CloudRegion[] = [
     provider: 'linode',
     regionCode: 'eu-central',
     displayName: 'Frankfurt',
+    regionType: 'commercial',
     location: {
       country: 'Germany',
       countryCode: 'DE',
@@ -1077,6 +857,7 @@ export const linodeRegions: CloudRegion[] = [
     provider: 'linode',
     regionCode: 'ap-south',
     displayName: 'Singapore',
+    regionType: 'commercial',
     location: {
       country: 'Singapore',
       countryCode: 'SG',
@@ -1094,6 +875,7 @@ export const linodeRegions: CloudRegion[] = [
     provider: 'linode',
     regionCode: 'ap-northeast',
     displayName: 'Tokyo',
+    regionType: 'commercial',
     location: {
       country: 'Japan',
       countryCode: 'JP',
@@ -1111,6 +893,7 @@ export const linodeRegions: CloudRegion[] = [
     provider: 'linode',
     regionCode: 'ap-southeast',
     displayName: 'Sydney',
+    regionType: 'commercial',
     location: {
       country: 'Australia',
       countryCode: 'AU',
@@ -1132,6 +915,7 @@ export const ovhRegions: CloudRegion[] = [
     provider: 'ovh',
     regionCode: 'GRA',
     displayName: 'Gravelines',
+    regionType: 'commercial',
     location: {
       country: 'France',
       countryCode: 'FR',
@@ -1149,6 +933,7 @@ export const ovhRegions: CloudRegion[] = [
     provider: 'ovh',
     regionCode: 'SBG',
     displayName: 'Strasbourg',
+    regionType: 'commercial',
     location: {
       country: 'France',
       countryCode: 'FR',
@@ -1166,6 +951,7 @@ export const ovhRegions: CloudRegion[] = [
     provider: 'ovh',
     regionCode: 'RBX',
     displayName: 'Roubaix',
+    regionType: 'commercial',
     location: {
       country: 'France',
       countryCode: 'FR',
@@ -1183,6 +969,7 @@ export const ovhRegions: CloudRegion[] = [
     provider: 'ovh',
     regionCode: 'DE1',
     displayName: 'Frankfurt',
+    regionType: 'commercial',
     location: {
       country: 'Germany',
       countryCode: 'DE',
@@ -1200,6 +987,7 @@ export const ovhRegions: CloudRegion[] = [
     provider: 'ovh',
     regionCode: 'UK1',
     displayName: 'London',
+    regionType: 'commercial',
     location: {
       country: 'United Kingdom',
       countryCode: 'GB',
@@ -1217,6 +1005,7 @@ export const ovhRegions: CloudRegion[] = [
     provider: 'ovh',
     regionCode: 'WAW1',
     displayName: 'Warsaw',
+    regionType: 'commercial',
     location: {
       country: 'Poland',
       countryCode: 'PL',
@@ -1234,6 +1023,7 @@ export const ovhRegions: CloudRegion[] = [
     provider: 'ovh',
     regionCode: 'BHS',
     displayName: 'Beauharnois',
+    regionType: 'commercial',
     location: {
       country: 'Canada',
       countryCode: 'CA',
@@ -1251,6 +1041,7 @@ export const ovhRegions: CloudRegion[] = [
     provider: 'ovh',
     regionCode: 'SGP1',
     displayName: 'Singapore',
+    regionType: 'commercial',
     location: {
       country: 'Singapore',
       countryCode: 'SG',
@@ -1268,6 +1059,7 @@ export const ovhRegions: CloudRegion[] = [
     provider: 'ovh',
     regionCode: 'SYD1',
     displayName: 'Sydney',
+    regionType: 'commercial',
     location: {
       country: 'Australia',
       countryCode: 'AU',

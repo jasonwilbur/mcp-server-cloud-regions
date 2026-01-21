@@ -79,9 +79,14 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
               type: 'boolean',
               description: 'Filter to only regions with GPU availability',
             },
-            governmentCloud: {
-              type: 'boolean',
-              description: 'Filter to only government cloud regions',
+            regionTypes: {
+              type: 'array',
+              items: { type: 'string', enum: ['commercial', 'government', 'sovereign', 'china', 'multicloud'] },
+              description: 'Filter by region type (e.g., ["commercial", "government", "sovereign"])',
+            },
+            dataResidency: {
+              type: 'string',
+              description: 'Filter by data residency (e.g., "EU", "US", "Germany")',
             },
             minAvailabilityZones: {
               type: 'number',
@@ -313,7 +318,8 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         if (args?.compliance) filter.compliance = args.compliance as ComplianceCertification[];
         if (args?.carbonNeutral !== undefined) filter.carbonNeutral = args.carbonNeutral as boolean;
         if (args?.hasGpu !== undefined) filter.hasGpu = args.hasGpu as boolean;
-        if (args?.governmentCloud !== undefined) filter.governmentCloud = args.governmentCloud as boolean;
+        if (args?.regionTypes) filter.regionTypes = args.regionTypes as any[];
+        if (args?.dataResidency) filter.dataResidency = args.dataResidency as string;
         if (args?.minAvailabilityZones !== undefined) filter.minAvailabilityZones = args.minAvailabilityZones as number;
 
         const regions = listRegions(Object.keys(filter).length > 0 ? filter : undefined);

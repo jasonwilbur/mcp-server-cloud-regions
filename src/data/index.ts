@@ -2,8 +2,8 @@ import type { CloudRegion } from '../types/index.js';
 import { awsRegions } from './regions-aws.js';
 import { azureRegions } from './regions-azure.js';
 import { gcpRegions } from './regions-gcp.js';
+import { ociRegions } from './regions-oci.js';
 import {
-  ociRegions,
   digitaloceanRegions,
   crusoeRegions,
   coreweaveRegions,
