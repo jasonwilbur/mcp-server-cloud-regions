@@ -322,9 +322,9 @@ export const awsRegions: CloudRegion[] = [
     services: { compute: true, kubernetes: true, serverless: true },
   },
   {
-    id: 'aws-ap-northeast-4',
+    id: 'aws-ap-east-2',
     provider: 'aws',
-    regionCode: 'ap-northeast-4',
+    regionCode: 'ap-east-2',
     displayName: 'Asia Pacific (Taipei)',
     regionType: 'commercial',
     location: { country: 'Taiwan', countryCode: 'TW', city: 'Taipei', latitude: 25.0330, longitude: 121.5654, continent: 'asia' },

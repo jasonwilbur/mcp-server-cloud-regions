@@ -951,6 +951,91 @@ export const ociRegions: CloudRegion[] = [
   },
 
   // ============================================================================
+  // US DEFENSE CLOUD REGIONS (OC3 Realm - DoD IL5)
+  // ============================================================================
+  {
+    id: 'oci-us-gov-ashburn-1',
+    provider: 'oci',
+    regionCode: 'us-gov-ashburn-1',
+    displayName: 'US DoD East (Ashburn)',
+    regionType: 'government',
+    location: {
+      country: 'United States',
+      countryCode: 'US',
+      city: 'Ashburn',
+      latitude: 39.0438,
+      longitude: -77.4874,
+      continent: 'north-america',
+    },
+    availabilityZones: 1,
+    status: 'ga',
+    compliance: ['DoD-IL5', 'FedRAMP-High', 'SOC1', 'SOC2', 'ISO27001'],
+    network: { directConnect: true, directConnectName: 'FastConnect' },
+    services: { compute: true, kubernetes: true, serverless: true },
+    sovereignty: {
+      dataResidency: 'US',
+      dataResidencyGuarantee: true,
+      governmentClassification: 'IL5',
+      accessRestrictions: 'US Department of Defense customers only',
+    },
+    notes: 'OC3 Realm - US Defense Cloud',
+  },
+  {
+    id: 'oci-us-gov-chicago-1',
+    provider: 'oci',
+    regionCode: 'us-gov-chicago-1',
+    displayName: 'US DoD Central (Chicago)',
+    regionType: 'government',
+    location: {
+      country: 'United States',
+      countryCode: 'US',
+      city: 'Chicago',
+      latitude: 41.8781,
+      longitude: -87.6298,
+      continent: 'north-america',
+    },
+    availabilityZones: 1,
+    status: 'ga',
+    compliance: ['DoD-IL5', 'FedRAMP-High', 'SOC1', 'SOC2', 'ISO27001'],
+    network: { directConnect: true, directConnectName: 'FastConnect' },
+    services: { compute: true, kubernetes: true, serverless: true },
+    sovereignty: {
+      dataResidency: 'US',
+      dataResidencyGuarantee: true,
+      governmentClassification: 'IL5',
+      accessRestrictions: 'US Department of Defense customers only',
+    },
+    notes: 'OC3 Realm - US Defense Cloud',
+  },
+  {
+    id: 'oci-us-gov-phoenix-1',
+    provider: 'oci',
+    regionCode: 'us-gov-phoenix-1',
+    displayName: 'US DoD West (Phoenix)',
+    regionType: 'government',
+    location: {
+      country: 'United States',
+      countryCode: 'US',
+      city: 'Phoenix',
+      latitude: 33.4484,
+      longitude: -112.0740,
+      continent: 'north-america',
+    },
+    availabilityZones: 1,
+    status: 'ga',
+    compliance: ['DoD-IL5', 'FedRAMP-High', 'SOC1', 'SOC2', 'ISO27001'],
+    network: { directConnect: true, directConnectName: 'FastConnect' },
+    services: { compute: true, kubernetes: true, serverless: true },
+    sovereignty: {
+      dataResidency: 'US',
+      dataResidencyGuarantee: true,
+      governmentClassification: 'IL5',
+      accessRestrictions: 'US Department of Defense customers only',
+    },
+    notes: 'OC3 Realm - US Defense Cloud',
+  },
+
+  // ============================================================================
   // UK GOVERNMENT REGIONS
   // ============================================================================
   {
@@ -1002,6 +1087,36 @@ export const ociRegions: CloudRegion[] = [
       dataResidencyGuarantee: true,
       accessRestrictions: 'UK Government customers only',
     },
+  },
+
+  // ============================================================================
+  // AUSTRALIA GOVERNMENT REGION (OC10 Realm)
+  // ============================================================================
+  {
+    id: 'oci-ap-dcc-canberra-1',
+    provider: 'oci',
+    regionCode: 'ap-dcc-canberra-1',
+    displayName: 'Australia Government (Canberra)',
+    regionType: 'government',
+    location: {
+      country: 'Australia',
+      countryCode: 'AU',
+      city: 'Canberra',
+      latitude: -35.2809,
+      longitude: 149.1300,
+      continent: 'oceania',
+    },
+    availabilityZones: 1,
+    status: 'ga',
+    compliance: ['IRAP-PROTECTED', 'SOC1', 'SOC2', 'ISO27001'],
+    network: { directConnect: true, directConnectName: 'FastConnect' },
+    services: { compute: true, kubernetes: true, serverless: true },
+    sovereignty: {
+      dataResidency: 'Australia',
+      dataResidencyGuarantee: true,
+      accessRestrictions: 'Australian Government customers only',
+    },
+    notes: 'OC10 Realm - Dedicated for Australian Government workloads',
   },
 
   // ============================================================================

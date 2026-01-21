@@ -768,6 +768,29 @@ export const azureRegions: CloudRegion[] = [
     services: { compute: true, kubernetes: true, serverless: true, aiMl: true },
     notes: 'First Azure region in Belgium, launched November 2025',
   },
+  {
+    id: 'azure-denmarkeast',
+    provider: 'azure',
+    regionCode: 'denmarkeast',
+    displayName: 'Denmark East',
+    regionType: 'commercial',
+    location: {
+      country: 'Denmark',
+      countryCode: 'DK',
+      city: 'Copenhagen',
+      latitude: 55.6761,
+      longitude: 12.5683,
+      continent: 'europe',
+    },
+    availabilityZones: 3,
+    launchedDate: '2025-01-01',
+    status: 'ga',
+    compliance: ['SOC1', 'SOC2', 'ISO27001', 'PCI-DSS', 'GDPR'],
+    sustainability: { carbonNeutral: true },
+    network: { directConnect: true, directConnectName: 'Azure ExpressRoute' },
+    services: { compute: true, kubernetes: true, serverless: true },
+    notes: 'First Azure region in Denmark',
+  },
 
   // ============================================================================
   // COMMERCIAL REGIONS - Asia Pacific
@@ -1288,29 +1311,6 @@ export const azureRegions: CloudRegion[] = [
     network: { directConnect: true, directConnectName: 'Azure ExpressRoute' },
     services: { compute: true, kubernetes: true, serverless: true },
   },
-  {
-    id: 'azure-saudiarabiacentral',
-    provider: 'azure',
-    regionCode: 'saudiarabiacentral',
-    displayName: 'Saudi Arabia Central',
-    regionType: 'commercial',
-    location: {
-      country: 'Saudi Arabia',
-      countryCode: 'SA',
-      city: 'Riyadh',
-      latitude: 24.7136,
-      longitude: 46.6753,
-      continent: 'middle-east',
-    },
-    availabilityZones: 3,
-    launchedDate: '2025-06-01',
-    status: 'preview',
-    compliance: ['SOC1', 'SOC2', 'ISO27001', 'PCI-DSS'],
-    sustainability: { carbonNeutral: true },
-    network: { directConnect: true, directConnectName: 'Azure ExpressRoute' },
-    services: { compute: true, kubernetes: true, serverless: true },
-  },
-
   // ============================================================================
   // COMMERCIAL REGIONS - Africa
   // ============================================================================

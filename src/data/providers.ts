@@ -101,6 +101,15 @@ export const providers: CloudProviderInfo[] = [
     description: 'GPU cloud focused on deep learning and AI research',
     specialization: ['gpu', 'ai-ml', 'deep-learning', 'research'],
   },
+  {
+    id: 'paperspace',
+    name: 'Paperspace (DigitalOcean)',
+    tier: 'specialized',
+    website: 'https://www.paperspace.com',
+    regionDocsUrl: 'https://docs.digitalocean.com/products/paperspace/platform-overview/availability/',
+    description: 'GPU cloud for AI/ML, acquired by DigitalOcean',
+    specialization: ['gpu', 'ai-ml', 'notebooks', 'deep-learning'],
+  },
   // Regional providers
   {
     id: 'ovh',

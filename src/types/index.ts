@@ -15,6 +15,7 @@ export type CloudProvider =
   | 'crusoe'
   | 'coreweave'
   | 'lambda'
+  | 'paperspace'
   // Regional providers
   | 'ovh'
   | 'hetzner'
@@ -106,9 +107,11 @@ export type ComplianceCertification =
   | 'CCPA'
   | 'C5'
   | 'IRAP'
+  | 'IRAP-PROTECTED'
   | 'MTCS'
   | 'ENS'
-  | 'ISMAP';
+  | 'ISMAP'
+  | 'DoD-IL5';
 
 /**
  * Sustainability and environmental data
