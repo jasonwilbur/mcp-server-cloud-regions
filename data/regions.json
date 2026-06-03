@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "lastUpdated": "2026-01-21",
-    "version": "1.0.4",
-    "totalRegions": 267,
+    "lastUpdated": "2026-06-03",
+    "version": "1.1.0",
+    "totalRegions": 269,
     "totalProviders": 14,
     "sources": {
       "aws": "https://aws.amazon.com/about-aws/global-infrastructure/regions_az/",
@@ -20,7 +20,7 @@
       "crusoe": "https://www.crusoe.ai/cloud/",
       "lambda": "https://lambdalabs.com/service/gpu-cloud"
     },
-    "exportedAt": "2026-01-21T15:21:18.265Z"
+    "exportedAt": "2026-06-03T22:46:40.278Z"
   },
   "providers": [
     {
@@ -4566,6 +4566,45 @@
       "notes": "Latest Azure China East region (preview)"
     },
     {
+      "id": "gcp-asia-southeast3",
+      "provider": "gcp",
+      "regionCode": "asia-southeast3",
+      "displayName": "Bangkok",
+      "regionType": "commercial",
+      "location": {
+        "country": "Thailand",
+        "countryCode": "TH",
+        "city": "Bangkok",
+        "latitude": 13.7563,
+        "longitude": 100.5018,
+        "continent": "asia"
+      },
+      "availabilityZones": 3,
+      "launchedDate": "2026-01-21",
+      "status": "ga",
+      "compliance": [
+        "SOC1",
+        "SOC2",
+        "SOC3",
+        "ISO27001",
+        "PCI-DSS"
+      ],
+      "sustainability": {
+        "carbonNeutral": true
+      },
+      "network": {
+        "directConnect": true,
+        "directConnectName": "Cloud Interconnect"
+      },
+      "services": {
+        "compute": true,
+        "kubernetes": true,
+        "serverless": true,
+        "gpu": false,
+        "aiMl": true
+      }
+    },
+    {
       "id": "gcp-us-central1",
       "provider": "gcp",
       "regionCode": "us-central1",
@@ -6282,6 +6321,40 @@
         "compute": true,
         "kubernetes": true,
         "serverless": true
+      }
+    },
+    {
+      "id": "oci-ap-kulai-2",
+      "provider": "oci",
+      "regionCode": "ap-kulai-2",
+      "displayName": "Malaysia West (Kulai)",
+      "regionType": "commercial",
+      "location": {
+        "country": "Malaysia",
+        "countryCode": "MY",
+        "city": "Kulai",
+        "latitude": 1.6608,
+        "longitude": 103.601,
+        "continent": "asia"
+      },
+      "availabilityZones": 1,
+      "launchedDate": "2026-02-02",
+      "status": "ga",
+      "compliance": [
+        "SOC1",
+        "SOC2",
+        "ISO27001"
+      ],
+      "network": {
+        "directConnect": true,
+        "directConnectName": "FastConnect"
+      },
+      "services": {
+        "compute": true,
+        "kubernetes": true,
+        "serverless": true,
+        "gpu": false,
+        "aiMl": true
       }
     },
     {

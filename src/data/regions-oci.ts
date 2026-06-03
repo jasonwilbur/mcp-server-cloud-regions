@@ -6,6 +6,30 @@ import type { CloudRegion } from '../types/index.js';
  */
 export const ociRegions: CloudRegion[] = [
   // ============================================================================
+  // ASIA PACIFIC - Commercial (newest)
+  // ============================================================================
+  {
+    id: 'oci-ap-kulai-2',
+    provider: 'oci',
+    regionCode: 'ap-kulai-2',
+    displayName: 'Malaysia West (Kulai)',
+    regionType: 'commercial',
+    location: {
+      country: 'Malaysia',
+      countryCode: 'MY',
+      city: 'Kulai',
+      latitude: 1.6608,
+      longitude: 103.601,
+      continent: 'asia',
+    },
+    availabilityZones: 1,
+    launchedDate: '2026-02-02',
+    status: 'ga',
+    compliance: ['SOC1', 'SOC2', 'ISO27001'],
+    network: { directConnect: true, directConnectName: 'FastConnect' },
+    services: { compute: true, kubernetes: true, serverless: true, gpu: false, aiMl: true },
+  },
+  // ============================================================================
   // NORTH AMERICA - Commercial
   // ============================================================================
   {

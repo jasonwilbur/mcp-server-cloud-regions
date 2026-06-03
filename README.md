@@ -1,11 +1,14 @@
 # mcp-server-cloud-regions
 
 [![npm version](https://img.shields.io/npm/v/mcp-server-cloud-regions.svg)](https://www.npmjs.com/package/mcp-server-cloud-regions)
+[![npm downloads](https://img.shields.io/npm/dm/mcp-server-cloud-regions.svg)](https://www.npmjs.com/package/mcp-server-cloud-regions)
+[![CI](https://github.com/jasonwilbur/mcp-server-cloud-regions/actions/workflows/ci.yml/badge.svg)](https://github.com/jasonwilbur/mcp-server-cloud-regions/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![MCP Registry](https://img.shields.io/badge/MCP-Registry-blue)](https://registry.modelcontextprotocol.io)
 
 A [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server providing comprehensive cloud region data across all major providers. Query, filter, and compare cloud infrastructure locations worldwide.
 
-**267 regions** across **14 cloud providers** — updated automatically.
+**269 regions** across **14 cloud providers** — query by location, compliance, sustainability, and GPU availability.
 
 ## Quick Start
 
@@ -21,7 +24,7 @@ Add to your config file:
   "mcpServers": {
     "cloud-regions": {
       "command": "npx",
-      "args": ["mcp-server-cloud-regions"]
+      "args": ["-y", "mcp-server-cloud-regions"]
     }
   }
 }
@@ -30,7 +33,7 @@ Add to your config file:
 ### With Claude Code (CLI)
 
 ```bash
-claude mcp add cloud-regions -- npx mcp-server-cloud-regions
+claude mcp add cloud-regions -- npx -y mcp-server-cloud-regions
 ```
 
 Then ask Claude questions like:
@@ -212,7 +215,7 @@ The server automatically fetches the latest region data from GitHub on startup, 
 - [OCI Regions](https://oracle.com/cloud/public-cloud-regions/)
 - [DigitalOcean Datacenters](https://docs.digitalocean.com/platform/regional-availability/)
 
-A weekly GitHub Action checks for provider page changes and creates issues when updates may be needed.
+A weekly GitHub Action checks the provider pages for changes and opens an issue when an update may be needed; the region data is then refreshed and released by a maintainer (the dataset itself is curated, not auto-generated from the provider pages).
 
 ## Use Cases
 
@@ -233,7 +236,7 @@ npm install mcp-server-cloud-regions
 Or run directly with npx:
 
 ```bash
-npx mcp-server-cloud-regions
+npx -y mcp-server-cloud-regions
 ```
 
 ## Contributing

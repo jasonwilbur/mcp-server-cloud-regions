@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { createRequire } from 'module';
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import {
@@ -8,6 +9,12 @@ import {
 } from '@modelcontextprotocol/sdk/types.js';
 
 import type { RegionFilter, NearbySearch, ComplianceCertification, ProviderTier, CloudProvider } from './types/index.js';
+
+// Single source of truth for the version: read it from package.json at runtime
+// (dist/index.js -> ../package.json) so the MCP handshake can never drift from
+// the published package version.
+const require = createRequire(import.meta.url);
+const { version: VERSION } = require('../package.json') as { version: string };
 import { fetchRegionData } from './data/remote.js';
 import { initializeStore, getMetadata } from './data/store.js';
 import {
@@ -29,7 +36,7 @@ import {
 const server = new Server(
   {
     name: 'mcp-server-cloud-regions',
-    version: '0.1.0',
+    version: VERSION,
   },
   {
     capabilities: {
@@ -38,13 +45,21 @@ const server = new Server(
   }
 );
 
+// Read-only annotations shared by every tool (all 14 tools only read bundled
+// data — none mutate state and none hit the network at call time).
+const READ_ONLY_ANNOTATIONS = {
+  readOnlyHint: true,
+  destructiveHint: false,
+  idempotentHint: true,
+  openWorldHint: false,
+} as const;
+
 // Define available tools
 server.setRequestHandler(ListToolsRequestSchema, async () => {
-  return {
-    tools: [
+  const tools = [
       {
         name: 'list_regions',
-        description: 'List all cloud regions across all providers. Supports filtering by provider, tier, country, continent, compliance, sustainability, GPU availability, and more.',
+        description: 'List all cloud regions across all providers. Supports filtering by provider, tier, country, continent, compliance, sustainability, GPU availability, and more. Returns a compact summary when called with no filter; pass a filter or "limit" for full region objects.',
         inputSchema: {
           type: 'object',
           properties: {
@@ -93,6 +108,10 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
             minAvailabilityZones: {
               type: 'number',
               description: 'Filter by minimum number of availability zones',
+            },
+            limit: {
+              type: 'number',
+              description: 'Maximum number of full region objects to return (default: all when filtered; a compact summary when unfiltered)',
             },
           },
         },
@@ -309,9 +328,36 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
           properties: {},
         },
       },
-    ],
+  ];
+  return {
+    tools: tools.map((tool) => ({
+      ...tool,
+      annotations: { title: tool.name, ...READ_ONLY_ANNOTATIONS },
+    })),
   };
 });
+
+// Unfiltered list_regions would dump every region object (hundreds) as one text
+// blob. Above this count, with no filter and no explicit limit, return a compact
+// summary instead and tell the caller how to get the full objects.
+const MAX_UNFILTERED_REGIONS = 50;
+
+// Build a tool result with both human-readable text and machine-parseable
+// `structuredContent`, stamped with the data's `lastUpdated` so callers can see
+// how fresh it is. The text payload keeps the tool's original shape (an array
+// stays an array) for backward compatibility.
+function ok(result: unknown) {
+  const dataLastUpdated = getMetadata().lastUpdated;
+  const structuredContent: Record<string, unknown> = Array.isArray(result)
+    ? { count: result.length, dataLastUpdated, items: result }
+    : result !== null && typeof result === 'object'
+      ? { ...(result as Record<string, unknown>), dataLastUpdated }
+      : { result, dataLastUpdated };
+  return {
+    content: [{ type: 'text' as const, text: JSON.stringify(result, null, 2) }],
+    structuredContent,
+  };
+}
 
 // Handle tool calls
 server.setRequestHandler(CallToolRequestSchema, async (request) => {
@@ -332,10 +378,28 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         if (args?.dataResidency) filter.dataResidency = args.dataResidency as string;
         if (args?.minAvailabilityZones !== undefined) filter.minAvailabilityZones = args.minAvailabilityZones as number;
 
-        const regions = listRegions(Object.keys(filter).length > 0 ? filter : undefined);
-        return {
-          content: [{ type: 'text', text: JSON.stringify(regions, null, 2) }],
-        };
+        const hasFilter = Object.keys(filter).length > 0;
+        const limit = typeof args?.limit === 'number' ? (args.limit as number) : undefined;
+        const regions = listRegions(hasFilter ? filter : undefined);
+
+        // No filter, no explicit limit, and a large result -> compact summary.
+        if (!hasFilter && limit === undefined && regions.length > MAX_UNFILTERED_REGIONS) {
+          return ok({
+            total: regions.length,
+            truncated: true,
+            note: `Showing a compact summary of the first ${MAX_UNFILTERED_REGIONS} of ${regions.length} regions. Pass a filter (provider/country/continent/compliance/...) or a "limit" to retrieve full region objects.`,
+            regions: regions.slice(0, MAX_UNFILTERED_REGIONS).map((r) => ({
+              id: r.id,
+              provider: r.provider,
+              regionCode: r.regionCode,
+              displayName: r.displayName,
+              city: r.location.city,
+              countryCode: r.location.countryCode,
+            })),
+          });
+        }
+
+        return ok(limit !== undefined ? regions.slice(0, limit) : regions);
       }
 
       case 'get_region': {
@@ -346,24 +410,14 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
             isError: true,
           };
         }
-        return {
-          content: [{ type: 'text', text: JSON.stringify(region, null, 2) }],
-        };
+        return ok(region);
       }
 
-      case 'list_providers': {
-        const providerList = listProviders(args?.tier as ProviderTier | undefined);
-        return {
-          content: [{ type: 'text', text: JSON.stringify(providerList, null, 2) }],
-        };
-      }
+      case 'list_providers':
+        return ok(listProviders(args?.tier as ProviderTier | undefined));
 
-      case 'get_provider_regions': {
-        const regions = getProviderRegions(args?.provider as CloudProvider);
-        return {
-          content: [{ type: 'text', text: JSON.stringify(regions, null, 2) }],
-        };
-      }
+      case 'get_provider_regions':
+        return ok(getProviderRegions(args?.provider as CloudProvider));
 
       case 'find_nearby_regions': {
         const search: NearbySearch = {
@@ -377,28 +431,18 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
           if (args?.providers) search.filter.providers = args.providers as CloudProvider[];
           if (args?.hasGpu) search.filter.hasGpu = args.hasGpu as boolean;
         }
-        const regions = findNearbyRegions(search);
-        return {
-          content: [{ type: 'text', text: JSON.stringify(regions, null, 2) }],
-        };
+        return ok(findNearbyRegions(search));
       }
 
       case 'search_regions': {
         const filter: RegionFilter | undefined = args?.providers
           ? { providers: args.providers as CloudProvider[] }
           : undefined;
-        const regions = searchRegions(args?.query as string, filter);
-        return {
-          content: [{ type: 'text', text: JSON.stringify(regions, null, 2) }],
-        };
+        return ok(searchRegions(args?.query as string, filter));
       }
 
-      case 'get_statistics': {
-        const stats = getStatistics();
-        return {
-          content: [{ type: 'text', text: JSON.stringify(stats, null, 2) }],
-        };
-      }
+      case 'get_statistics':
+        return ok(getStatistics());
 
       case 'find_compliant_regions': {
         const filter: RegionFilter = {};
@@ -408,19 +452,14 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
           args?.certifications as ComplianceCertification[],
           Object.keys(filter).length > 0 ? filter : undefined
         );
-        return {
-          content: [{ type: 'text', text: JSON.stringify(regions, null, 2) }],
-        };
+        return ok(regions);
       }
 
       case 'find_sustainable_regions': {
         const filter: RegionFilter = {};
         if (args?.providers) filter.providers = args.providers as CloudProvider[];
         if (args?.continents) filter.continents = args.continents as any[];
-        const regions = findSustainableRegions(Object.keys(filter).length > 0 ? filter : undefined);
-        return {
-          content: [{ type: 'text', text: JSON.stringify(regions, null, 2) }],
-        };
+        return ok(findSustainableRegions(Object.keys(filter).length > 0 ? filter : undefined));
       }
 
       case 'find_gpu_regions': {
@@ -431,40 +470,36 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
           args?.gpuType as string | undefined,
           Object.keys(filter).length > 0 ? filter : undefined
         );
-        return {
-          content: [{ type: 'text', text: JSON.stringify(regions, null, 2) }],
-        };
+        return ok(regions);
       }
 
       case 'compare_provider_coverage': {
-        const coverage = compareProviderCoverage(
-          args?.countryCode as string | undefined,
-          args?.continent as string | undefined
-        );
-        return {
-          content: [{ type: 'text', text: JSON.stringify(coverage, null, 2) }],
-        };
+        const countryCode = args?.countryCode as string | undefined;
+        const continent = args?.continent as string | undefined;
+        // Require a scope: comparing "globally" with no argument is a confusing
+        // no-op rather than a useful answer.
+        if (!countryCode && !continent) {
+          return {
+            content: [
+              {
+                type: 'text',
+                text: 'compare_provider_coverage requires at least one of "countryCode" or "continent" to scope the comparison.',
+              },
+            ],
+            isError: true,
+          };
+        }
+        return ok(compareProviderCoverage(countryCode, continent));
       }
 
-      case 'list_countries': {
-        const countries = listCountries();
-        return {
-          content: [{ type: 'text', text: JSON.stringify(countries, null, 2) }],
-        };
-      }
+      case 'list_countries':
+        return ok(listCountries());
 
-      case 'list_cities': {
-        const cities = listCities();
-        return {
-          content: [{ type: 'text', text: JSON.stringify(cities, null, 2) }],
-        };
-      }
+      case 'list_cities':
+        return ok(listCities());
 
-      case 'get_data_info': {
-        return {
-          content: [{ type: 'text', text: JSON.stringify(getMetadata(), null, 2) }],
-        };
-      }
+      case 'get_data_info':
+        return ok(getMetadata());
 
       default:
         return {
