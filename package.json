@@ -1,6 +1,6 @@
 {
   "name": "mcp-server-cloud-regions",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "mcpName": "io.github.jasonwilbur/cloud-regions",
   "description": "MCP server providing comprehensive cloud region data across all major providers (AWS, Azure, GCP, OCI, DigitalOcean, Crusoe, and more)",
   "keywords": [
@@ -43,17 +43,22 @@
     "prepare": "npm run build",
     "lint": "eslint src/",
     "typecheck": "tsc --noEmit",
+    "test": "vitest run",
     "export-data": "node scripts/export-regions.js",
     "check-updates": "node scripts/check-for-updates.js"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.0.0"
+    "@modelcontextprotocol/sdk": "^1.18.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.13.0",
     "@types/node": "^20.10.0",
-    "typescript": "^5.3.0"
+    "eslint": "^9.13.0",
+    "typescript": "^5.3.0",
+    "typescript-eslint": "^8.12.0",
+    "vitest": "^2.1.0"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.0.0"
   }
 }

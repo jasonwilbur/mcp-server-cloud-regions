@@ -6,6 +6,7 @@ import type {
   CloudProvider,
   ProviderTier,
   ComplianceCertification,
+  GeoLocation,
 } from '../types/index.js';
 import {
   getRegions,
@@ -372,6 +373,3 @@ export function listCities(): { city: string; country: string; providers: string
     }))
     .sort((a, b) => b.regionCount - a.regionCount);
 }
-
-// Import GeoLocation type for proper typing
-import type { GeoLocation } from '../types/index.js';

@@ -2,6 +2,31 @@ import type { CloudRegion } from '../types/index.js';
 
 export const gcpRegions: CloudRegion[] = [
   // ============================================================================
+  // COMMERCIAL REGIONS - Asia (newest first)
+  // ============================================================================
+  {
+    id: 'gcp-asia-southeast3',
+    provider: 'gcp',
+    regionCode: 'asia-southeast3',
+    displayName: 'Bangkok',
+    regionType: 'commercial',
+    location: {
+      country: 'Thailand',
+      countryCode: 'TH',
+      city: 'Bangkok',
+      latitude: 13.7563,
+      longitude: 100.5018,
+      continent: 'asia',
+    },
+    availabilityZones: 3,
+    launchedDate: '2026-01-21',
+    status: 'ga',
+    compliance: ['SOC1', 'SOC2', 'SOC3', 'ISO27001', 'PCI-DSS'],
+    sustainability: { carbonNeutral: true },
+    network: { directConnect: true, directConnectName: 'Cloud Interconnect' },
+    services: { compute: true, kubernetes: true, serverless: true, gpu: false, aiMl: true },
+  },
+  // ============================================================================
   // COMMERCIAL REGIONS - North America
   // ============================================================================
   {

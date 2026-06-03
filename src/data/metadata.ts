@@ -2,9 +2,9 @@
  * Metadata about the region data
  */
 export const dataMetadata = {
-  lastUpdated: '2026-01-21',
-  version: '1.0.4',
-  totalRegions: 267,
+  lastUpdated: '2026-06-03',
+  version: '1.1.0',
+  totalRegions: 269,
   totalProviders: 14,
   sources: {
     aws: 'https://aws.amazon.com/about-aws/global-infrastructure/regions_az/',
